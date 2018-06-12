@@ -34,6 +34,44 @@ function ex1() {
     else return false;
   }
 }
+
+function boucles_exe2() {
+  this.question = "Combien d'itérations de cette boucle seront exécutés ?";
+  this.input = "number";
+
+  this.nbInit = randNum(0,10);
+  this.nbLim = this.nbInit + randNum(3,5);
+
+  this.code = 'for(let i = '+this.nbInit+'; i < '+this.nbLim+'; i++) {';
+  this.code += '\n    console.log(i);';
+  this.code += '\n}';
+
+  this.answer = this.nbLim - this.nbInit;
+
+  this.validate = (input) => {
+    return (parseInt(input) === this.answer);
+  }
+}
+
+function boucles_nbiter_exe1() {
+  this.question = "Combien d'itérations de cette boucle seront exécutés ?";
+  this.input = "number";
+
+  this.nbInit = randNum(0,10);
+  this.nbLim = this.nbInit + randNum(3,5);
+
+  this.code = 'let i = '+this.nbInit+';'
+  this.code += 'while(let i < '+this.nbLim+') {';
+  this.code += '\n    i++';
+  this.code += '\n}';
+
+  this.answer = this.nbLim - this.nbInit;
+
+  this.validate = (input) => {
+    return (parseInt(input) === this.answer);
+  }
+}
+
 /* The event fired for a text input-based question
 form: DOM object
 exe: Exercise object (must have validate method)
@@ -55,7 +93,7 @@ let textInputEvent = (form, exe, ev) => {
 
 let populateTests = () => {
 
-  let test1 = new ex1();
+  let test1 = new boucles_exe2();
   selectTest(1).getElementsByTagName('p')[0].innerHTML = test1.question;
   selectTest(1).getElementsByTagName('code')[0].innerHTML = test1.code;
   // selectTest(1).getElementsByTagName('p')[1].innerHTML = test1.answer;
@@ -63,6 +101,19 @@ let populateTests = () => {
     // Create DOM elements
     let form = document.createElement('form');
     let input = document.createElement('input');
+    // Add them to the tree
+    form.appendChild(input);
+    selectTest(1).getElementsByClassName('user-input')[0].appendChild(form);
+    // Attach event handler to the form
+    form.addEventListener('submit', function(e) {
+      textInputEvent(this, test1, e);
+    });
+  }
+  else if(test1.input === "number") {
+    // Create DOM elements
+    let form = document.createElement('form');
+    let input = document.createElement('input');
+    input.type = "number";
     // Add them to the tree
     form.appendChild(input);
     selectTest(1).getElementsByClassName('user-input')[0].appendChild(form);
