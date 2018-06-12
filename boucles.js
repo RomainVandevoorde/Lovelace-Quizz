@@ -34,6 +34,24 @@ function ex1() {
     else return false;
   }
 }
+/* The event fired for a text input-based question
+form: DOM object
+exe: Exercise object (must have validate method)
+*/
+let textInputEvent = (form, exe, ev) => {
+  // Prevent form submit
+  ev.preventDefault();
+  // Get user input value
+  let data = form.getElementsByTagName('input')[0].value;
+
+  // Get DOM element to contain feedback
+  let answerBlock = form.parentNode.parentNode.getElementsByTagName('p')[1];
+
+  // Check answer and give feedback
+  if(exe.validate(data)) answerBlock.innerHTML = "OK ~";
+  else answerBlock.innerHTML = "~ Faux. La réponse était \""+exe.answer+"\"";
+
+}
 
 let populateTests = () => {
 
@@ -42,16 +60,15 @@ let populateTests = () => {
   selectTest(1).getElementsByTagName('code')[0].innerHTML = test1.code;
   // selectTest(1).getElementsByTagName('p')[1].innerHTML = test1.answer;
   if(test1.input === "text") {
+    // Create DOM elements
     let form = document.createElement('form');
     let input = document.createElement('input');
+    // Add them to the tree
     form.appendChild(input);
     selectTest(1).getElementsByClassName('user-input')[0].appendChild(form);
+    // Attach event handler to the form
     form.addEventListener('submit', function(e) {
-      e.preventDefault();
-      console.log(this);
-      let data = this.childNodes[0].value;
-      if(test1.validate(data)) selectTest(1).getElementsByTagName('p')[1].innerHTML = "OK !";
-      else selectTest(1).getElementsByTagName('p')[1].innerHTML = "Faux. La réponse était \""+test1.answer+"\"";
+      textInputEvent(this, test1, e);
     });
   }
 
