@@ -9,9 +9,33 @@ let selectTest = (id) => {
   return document.getElementById('test-'+id);
 }
 
-function ex1() {
+function textInputExercise() {
+  // exe: DOM reference of exercise container
+  this.createUserInput = (exe) => {
+
+    let form = document.createElement('form');
+    let input = document.createElement('input');
+
+    // Add them to the tree
+    form.appendChild(input);
+    // Attach event handler to the form
+    form.addEventListener('submit', function(e) {
+      // textInputEvent(this, test1, e);
+      e.preventDefault();
+      let input = this;
+      console.log(this);
+      this.validate()
+    });
+  };
+
+  this.validate = (input) => {
+
+  }
+}
+
+function boucles_for_string1() {
   this.question = "Que contiendra <i>answer</i> une fois le code suivant exécuté ?";
-  this.input = "text";
+  this.input = "plop";
   this.answer = "";
   this.code = "";
 
