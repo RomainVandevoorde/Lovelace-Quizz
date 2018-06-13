@@ -9,7 +9,7 @@ textAnswerExercise = class {
 
   // Validates the user's input
   validate(input) {
-    return (input.toString().trim() === this.answer.trim());
+    return (input.toString().trim() === this.answer);
   }
 
   // Creates the DOM elements for user input
@@ -21,12 +21,11 @@ textAnswerExercise = class {
   }
 }
 
-boucles_for_string1 = class extends textAnswerExercise {
+boucles_for_string_01 = class extends textAnswerExercise {
   constructor() {
     super();
     this.title = "Boucle 3";
     this.question = "Que contiendra <i>answer</i> une fois le code suivant exécuté ?";
-    this.answer = "";
 
     // Init random variables
     this.nbInit = randNum(0, 10);
@@ -36,34 +35,45 @@ boucles_for_string1 = class extends textAnswerExercise {
     this.code += "\n    answer += i + \" \";";
     this.code += "\n}";
 
+    this.answer = "";
     for (let i = this.nbInit; i < this.nbLim; i++) {
       this.answer += i + " ";
     }
+    this.answer = this.answer.trim();
+
+    this.feedback = "Faux, la bonne réponse était \""+this.answer+"\"";
   }
 }
 
-window.onload = () => {
-
-  let exoStr = "boucles_for_string1";
-  let exo = new window[exoStr];
-
+loadExe = (fct) => {
   const title = document.getElementsByTagName('h2')[0];
   const mainBlock = document.getElementById('test-1');
+  // Question block
   const question = mainBlock.getElementsByTagName('p')[0];
   const code = mainBlock.getElementsByTagName('code')[0];
   const input = mainBlock.getElementsByClassName('user-input')[0];
   const answer = mainBlock.getElementsByTagName('p')[1];
 
-  title.innerHTML = exo.title;
-  question.innerHTML = exo.question;
-  code.innerHTML = exo.code;
-  exo.input.addEventListener('submit', function(e){
+  let exe = new window[fct];
+
+  title.innerHTML = exe.title;
+  question.innerHTML = exe.question;
+  code.innerHTML = exe.code;
+  exe.input.addEventListener('submit', function(e){
     e.preventDefault();
     let data = e.target[0].value;
-    if(exo.validate(data)) alert("FÉLICITATIONS ENCULÉ !!!! ❤️❤️❤️❤️❤️❤️❤️");
-    else answer.innerHTML = "Faux, la réponse était \""+exo.answer+"\"";
+    if(exe.validate(data)) alert("FÉLICITATIONS ENCULÉ !!!! ❤️❤️❤️❤️❤️❤️❤️");
+    else answer.innerHTML = exe.feedback;
   });
-  input.appendChild(exo.input);
+  input.appendChild(exe.input);
+}
+
+window.onload = () => {
+
+  let exeStr = "boucles_for_string_01";
+
+  loadExe(exeStr);
+
 
 
   hljs.initHighlighting();
