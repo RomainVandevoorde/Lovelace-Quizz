@@ -59,42 +59,42 @@ function boucles_for_string1() {
   }
 }
 
-function boucles_exe2() {
-  this.question = "Combien d'itérations de cette boucle seront exécutés ?";
-  this.input = "number";
+// function boucles_exe2() {
+//   this.question = "Combien d'itérations de cette boucle seront exécutés ?";
+//   this.input = "number";
+//
+//   this.nbInit = randNum(0,10);
+//   this.nbLim = this.nbInit + randNum(3,5);
+//
+//   this.code = 'for(let i = '+this.nbInit+'; i < '+this.nbLim+'; i++) {';
+//   this.code += '\n    console.log(i);';
+//   this.code += '\n}';
+//
+//   this.answer = this.nbLim - this.nbInit;
+//
+//   this.validate = (input) => {
+//     return (parseInt(input) === this.answer);
+//   }
+// }
 
-  this.nbInit = randNum(0,10);
-  this.nbLim = this.nbInit + randNum(3,5);
-
-  this.code = 'for(let i = '+this.nbInit+'; i < '+this.nbLim+'; i++) {';
-  this.code += '\n    console.log(i);';
-  this.code += '\n}';
-
-  this.answer = this.nbLim - this.nbInit;
-
-  this.validate = (input) => {
-    return (parseInt(input) === this.answer);
-  }
-}
-
-function boucles_nbiter_exe1() {
-  this.question = "Combien d'itérations de cette boucle seront exécutés ?";
-  this.input = "number";
-
-  this.nbInit = randNum(0,10);
-  this.nbLim = this.nbInit + randNum(3,5);
-
-  this.code = 'let i = '+this.nbInit+';'
-  this.code += 'while(let i < '+this.nbLim+') {';
-  this.code += '\n    i++';
-  this.code += '\n}';
-
-  this.answer = this.nbLim - this.nbInit;
-
-  this.validate = (input) => {
-    return (parseInt(input) === this.answer);
-  }
-}
+// function boucles_nbiter_exe1() {
+//   this.question = "Combien d'itérations de cette boucle seront exécutés ?";
+//   this.input = "number";
+//
+//   this.nbInit = randNum(0,10);
+//   this.nbLim = this.nbInit + randNum(3,5);
+//
+//   this.code = 'let i = '+this.nbInit+';'
+//   this.code += 'while(let i < '+this.nbLim+') {';
+//   this.code += '\n    i++';
+//   this.code += '\n}';
+//
+//   this.answer = this.nbLim - this.nbInit;
+//
+//   this.validate = (input) => {
+//     return (parseInt(input) === this.answer);
+//   }
+// }
 
 /* The event fired for a text input-based question
 form: DOM object
