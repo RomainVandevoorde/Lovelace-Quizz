@@ -42,6 +42,7 @@ let loadExercise = (name) => {
   title.innerHTML = exe.title || name;
   question.innerHTML = exe.question;
   code.innerHTML = exe.code;
+  answer.innerHTML = "";
 
   // Events
   exe.input.addEventListener('submit', function(e){
@@ -52,7 +53,7 @@ let loadExercise = (name) => {
       answer.innerHTML = 'Yes ! Bravo ! :D';
       incrementExerciseSuccess(name);
       answer.innerHTML += '<br>Tu as réussi cet exercice '+window.localStorage.getItem(name)+' fois.';
-      loadExercise(name);
+      window.setTimeout(()=>{loadExercise(name)}, 2000);
     }
     // Mauvaise réponse
     else {
