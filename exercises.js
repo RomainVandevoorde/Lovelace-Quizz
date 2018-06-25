@@ -15,7 +15,11 @@ let randNum = (min, max) => {
 textAnswerExercise = class {
   constructor() {
     this.input = this.createInput();
-    this.feedback = 'Faux, la bonne réponse était "' + this.answer + '"';
+    this.inputType = "text";
+  }
+
+  feedback() {
+    return 'Faux, la bonne réponse était "' + this.answer + '"';
   }
 
   // Validates the user's input
@@ -28,18 +32,22 @@ textAnswerExercise = class {
     let form = document.createElement('form');
     let input = document.createElement('input');
     form.appendChild(input);
-    return form;
+    return form.innerHTML;
   }
 }
 
 numberAnswerExercise = class {
   constructor() {
     this.input = this.createInput();
-    this.feedback = 'Faux, la bonne réponse était "' + this.answer + '"';
+    this.inputType = "number";
   }
 
   validate(input) {
     return (parseInt(input) === this.answer);
+  }
+
+  feedback() {
+    this.feedback = 'Faux, la bonne réponse était ' + this.answer;
   }
 
   createInput() {
@@ -71,7 +79,7 @@ boucles_for_nbiter_01 = class extends numberAnswerExercise {
     this.code += '\n}';
 
     this.answer = this.nbLim - this.nbInit;
-    this.feedback = 'Faux, la bonne réponse était "' + this.answer + '"';
+    // this.feedback = 'Faux, la bonne réponse était "' + this.answer + '"';
   }
 }
 
@@ -85,12 +93,12 @@ boucles_while_nbiter_02 = class extends numberAnswerExercise {
     this.nbLim = this.nbInit + randNum(3,5);
 
     this.code = 'let i = '+this.nbInit+';'
-    this.code += '\n\nwhile(let i < '+this.nbLim+') {';
+    this.code += '\n\nwhile(i < '+this.nbLim+') {';
     this.code += '\n    i++;';
     this.code += '\n}';
 
     this.answer = this.nbLim - this.nbInit;
-    this.feedback = 'Faux, la bonne réponse était "' + this.answer + '"';
+    // this.feedback = 'Faux, la bonne réponse était "' + this.answer + '"';
   }
 }
 
@@ -104,12 +112,12 @@ boucles_while_nbiter_03 = class extends numberAnswerExercise {
     this.nbLim = this.nbInit + randNum(2,4)*2;
 
     this.code = 'let i = '+this.nbInit+';'
-    this.code += '\n\nwhile(let i < '+this.nbLim+') {';
+    this.code += '\n\nwhile(i < '+this.nbLim+') {';
     this.code += '\n    i += 2;';
     this.code += '\n}';
 
     this.answer = (this.nbLim - this.nbInit)/2;
-    this.feedback = 'Faux, la bonne réponse était "' + this.answer + '"';
+    // this.feedback = 'Faux, la bonne réponse était "' + this.answer + '"';
   }
 }
 
@@ -127,7 +135,7 @@ boucles_for_nbiter_04 = class extends numberAnswerExercise {
     this.code += '\n}';
 
     this.answer = (this.nbLim - this.nbInit)/2;
-    this.feedback = 'Faux, la bonne réponse était "' + this.answer + '"';
+    // this.feedback = 'Faux, la bonne réponse était "' + this.answer + '"';
   }
 }
 
@@ -152,6 +160,6 @@ boucles_for_concat_01 = class extends textAnswerExercise {
     }
     this.answer = this.answer.trim();
 
-    this.feedback = "Faux, la bonne réponse était \""+this.answer+"\"";
+    // this.feedback = "Faux, la bonne réponse était \""+this.answer+"\"";
   }
 }
