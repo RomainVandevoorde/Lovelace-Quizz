@@ -14,7 +14,6 @@ let randNum = (min, max) => {
  */
 textAnswerExercise = class {
   constructor() {
-    this.input = this.createInput();
     this.inputType = "text";
   }
 
@@ -26,19 +25,10 @@ textAnswerExercise = class {
   validate(input) {
     return (input.toString().trim() === this.answer);
   }
-
-  // Creates the DOM elements for user input
-  createInput() {
-    let form = document.createElement('form');
-    let input = document.createElement('input');
-    form.appendChild(input);
-    return form.innerHTML;
-  }
 }
 
 numberAnswerExercise = class {
   constructor() {
-    this.input = this.createInput();
     this.inputType = "number";
   }
 
@@ -47,15 +37,21 @@ numberAnswerExercise = class {
   }
 
   feedback() {
-    this.feedback = 'Faux, la bonne réponse était ' + this.answer;
+    return 'Faux, la bonne réponse était ' + this.answer;
+  }
+}
+
+multipleChoiceExercise = class {
+  constructor() {
+    this.inputType = "TrueOrFalse";
   }
 
-  createInput() {
-    let form = document.createElement('form');
-    let input = document.createElement('input');
-    input.type = 'number';
-    form.appendChild(input);
-    return form;
+  validate(data) {
+    return (data === this.answer);
+  }
+
+  feedback() {
+    return 'Faux, la bonne réponse était <b>'+this.answer+'</b>';
   }
 }
 
@@ -65,25 +61,26 @@ numberAnswerExercise = class {
  *
  */
 
-boucles_for_nbiter_01 = class extends numberAnswerExercise {
+let exercises = [];
+
+exercises[0] = class extends numberAnswerExercise {
   constructor() {
     super();
     this.title = "Boucles - Nombre d'itérations 1";
     this.question = "Combien d'itérations de cette boucle seront exécutées ?";
 
-    this.nbInit = randNum(0, 10);
-    this.nbLim = this.nbInit + randNum(3, 5);
+    let nbInit = randNum(0, 10);
+    let nbLim = nbInit + randNum(3, 5);
 
-    this.code = 'for(let i = ' + this.nbInit + '; i < ' + this.nbLim + '; i++) {';
+    this.code = 'for(let i = ' + nbInit + '; i < ' + nbLim + '; i++) {';
     this.code += '\n    console.log(i);';
     this.code += '\n}';
 
-    this.answer = this.nbLim - this.nbInit;
-    // this.feedback = 'Faux, la bonne réponse était "' + this.answer + '"';
+    this.answer = nbLim - nbInit;
   }
 }
 
-boucles_while_nbiter_02 = class extends numberAnswerExercise {
+exercises[1] = class extends numberAnswerExercise {
   constructor() {
     super();
     this.title = "Boucles - Nombre d'itérations 2";
@@ -98,11 +95,10 @@ boucles_while_nbiter_02 = class extends numberAnswerExercise {
     this.code += '\n}';
 
     this.answer = this.nbLim - this.nbInit;
-    // this.feedback = 'Faux, la bonne réponse était "' + this.answer + '"';
   }
 }
 
-boucles_while_nbiter_03 = class extends numberAnswerExercise {
+exercises[2] = class extends numberAnswerExercise {
   constructor() {
     super();
     this.title = "Boucles - Nombre d'itérations 3";
@@ -117,11 +113,10 @@ boucles_while_nbiter_03 = class extends numberAnswerExercise {
     this.code += '\n}';
 
     this.answer = (this.nbLim - this.nbInit)/2;
-    // this.feedback = 'Faux, la bonne réponse était "' + this.answer + '"';
   }
 }
 
-boucles_for_nbiter_04 = class extends numberAnswerExercise {
+exercises[3] = class extends numberAnswerExercise {
   constructor() {
     super();
     this.title = "Boucles - Nombre d'itérations 4";
@@ -135,31 +130,47 @@ boucles_for_nbiter_04 = class extends numberAnswerExercise {
     this.code += '\n}';
 
     this.answer = (this.nbLim - this.nbInit)/2;
-    // this.feedback = 'Faux, la bonne réponse était "' + this.answer + '"';
   }
 }
 
 
-boucles_for_concat_01 = class extends textAnswerExercise {
+exercises[4] = class extends textAnswerExercise {
   constructor() {
     super();
     this.title = "Boucles - Concaténation 1";
     this.question = "Que contiendra <i>answer</i> une fois le code suivant exécuté ?";
 
     // Init random variables
-    this.nbInit = randNum(0, 10);
-    this.nbLim = this.nbInit + randNum(3, 5);
+    let nbInit = randNum(0, 10);
+    let nbLim = nbInit + randNum(3, 5);
 
-    this.code = "let answer = \"\";\n\nfor(let i = " + this.nbInit + "; i < " + this.nbLim + "; i++) {";
+    this.code = "let answer = \"\";\n\nfor(let i = " + nbInit + "; i < " + nbLim + "; i++) {";
     this.code += "\n    answer += i + \" \";";
     this.code += "\n}";
 
     this.answer = "";
-    for (let i = this.nbInit; i < this.nbLim; i++) {
+    for (let i = nbInit; i < nbLim; i++) {
       this.answer += i + " ";
     }
     this.answer = this.answer.trim();
-
-    // this.feedback = "Faux, la bonne réponse était \""+this.answer+"\"";
   }
+}
+
+exercises[5] = class extends multipleChoiceExercise {
+  constructor() {
+    super();
+    this.title = "Opérateurs - Comparaison 1";
+    this.question = "Que vaudra <i>answer</i> une fois ce code exécuté ?";
+
+    let nb1 = randNum(0, 8);
+    let nb2 = nb1 + randNum(1, 4);
+
+    this.code = "let answer = "+nb1+" < "+nb2+";";
+    this.answer = true;
+    this.choices = ["false", "true"];
+  }
+}
+
+let exerciseDependencies = {
+
 }

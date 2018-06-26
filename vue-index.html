@@ -23,8 +23,11 @@
     </exercise-type-1> -->
 
   <section class="section">
-    <exercise-type-2>
-    </exercise-type-2>
+    <!-- <exercise-type-2>
+    </exercise-type-2> -->
+    <flexercise>
+
+    </flexercise>
   </section>
 
 
@@ -58,8 +61,59 @@
       </article>
     </div>
   </div>
-  <button class="button is-primary is-large" v-on:click="loadExercise">Load</button>
+  <button class="button is-primary is-large" v-on:click="loadExercise" style="position: absolute; top:0; left:0">Load</button>
+
 </div>
+</template>
+
+<template id="flexercise">
+  <div class="container">
+    <div class="has-text-centered">
+      <h1 class="title is-spaced">{{ title }}</h1>
+      <p class="content is-spaced" v-html="question"></p>
+    </div>
+    <div style="margin-bottom:20px;">
+      <pre><code class="javascript hljs" v-html="code"></code></pre>
+    </div>
+    <div class="columns is-desktop">
+      <div class="column">
+
+        <component v-bind:is="currentInputComponent" v-bind="currentInputProps" v-on:trigger-valid="validExercise"></component>
+
+      </div>
+      <div class="column">
+        <article class="message" v-bind:class="classObject">
+          <div v-html="resultText" class="message-body"></div>
+        </article>
+      </div>
+    </div>
+    <button class="button is-primary is-large" v-on:click="loadExercise" style="position: absolute; top:0; left:0">Load</button>
+
+  </div>
+</template>
+
+<template id="TrueOrFalse">
+  <div class="columns is-mobile has-text-white-bis">
+    <div class="column has-text-centered" v-on:click="inputTrue">
+      <h2 class="notification is-success is-size-4">{{ trueText }}</h2>
+    </div>
+    <div class="column has-text-centered" v-on:click="inputFalse">
+      <h2 class="notification is-danger is-size-4">{{ falseText }}</h2>
+    </div>
+  </div>
+</template>
+
+<template id="formInput">
+  <form action="" v-on:submit.prevent="validateExercise">
+    <div class="field has-addons">
+      <div class="control is-expanded">
+        <input class="input" v-bind:type="inputType" v-model="userInput">
+      </div>
+      <div class="control">
+        <button type="submit" name="button" class="button is-primary">Submit</button>
+      </div>
+    </div>
+  </form>
 </template>
 
 </body>
